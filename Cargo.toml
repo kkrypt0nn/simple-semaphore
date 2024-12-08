@@ -2,7 +2,7 @@
 name = "simple-semaphore"
 description = "🔐 A lightweight implementation of a Semaphore in Rust"
 authors = ["Krypton <root@krypton.ninja>"]
-version = "0.1.1"
+version = "0.1.2"
 documentation = "https://docs.rs/simple-semaphore"
 categories = ["asynchronous", "concurrency"]
 license = "MIT"
