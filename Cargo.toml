@@ -2,7 +2,7 @@
 name = "simple-semaphore"
 description = "🔐 A lightweight implementation of a Semaphore in Rust"
 authors = ["Krypton <root@krypton.ninja>"]
-version = "0.1.0"
+version = "0.1.1"
 documentation = "https://docs.rs/simple-semaphore"
 categories = ["asynchronous", "concurrency"]
 license = "MIT"
@@ -18,7 +18,7 @@ include = [
     "/src/**",
 ]
 keywords = ["algorithm", "twitter"]
-repository = "https://github.com/kkrypt0nn/rust-boilerplate"
+repository = "https://github.com/kkrypt0nn/simple-semaphore"
 edition = "2021"
 
 [dependencies]

@@ -7,6 +7,7 @@ use std::sync::{
 ///
 /// * When `acquire()` is called and the semaphore still has permits to give, it will return a `Permit`. If there are no permits that can be given, it will wait for one permit to be given back from a thread so that it can return a new `Permit`.
 /// * When `try_acquire()` is called and the semaphore still has permits to give, it will return `Some(Permit)`. If there are no permits that can be given, it will return `None`.
+#[derive(Debug)]
 pub struct Semaphore {
     permits: Arc<AtomicUsize>,
     condvar: Condvar,
@@ -66,6 +67,7 @@ impl Semaphore {
 }
 
 /// A permit that holds the Semaphore, so that `drop(permit)` can be called.
+#[derive(Debug)]
 pub struct Permit {
     semaphore: Arc<Semaphore>,
 }
