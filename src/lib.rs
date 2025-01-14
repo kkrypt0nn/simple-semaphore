@@ -33,6 +33,11 @@ impl Semaphore {
         })
     }
 
+    /// Returns the number of available permits
+    pub fn available_permits(self: &Arc<Self>) -> usize {
+        self.permits.load(Ordering::Relaxed)
+    }
+
     /// Tries to get a `Permit`. If no more permits can be given, it will wait for one permit to be given back from a thread so that it can return a new `Permit`.
     #[allow(unused_must_use)]
     pub fn acquire(self: &Arc<Self>) -> Permit {
