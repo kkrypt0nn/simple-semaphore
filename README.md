@@ -2,6 +2,7 @@
 
 # simple-semaphore
 
+[![Discord Server Badge](https://img.shields.io/discord/1358456011316396295?logo=discord)](https://discord.gg/xj6y5ZaTMr)
 [![Docs.rs Badge](https://img.shields.io/badge/docs.rs-simple--semaphore-61c192.svg)](https://docs.rs/simple-semaphore)
 [![Crates.io Badge](https://img.shields.io/crates/v/simple-semaphore.svg?color=fe7d37)](https://crates.io/crates/simple-semaphore)
 [![CI Badge](https://github.com/kkrypt0nn/simple-semaphore/actions/workflows/ci.yml/badge.svg)](https://github.com/kkrypt0nn/simple-semaphore/actions)
