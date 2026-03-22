@@ -1,4 +1,4 @@
-use std::thread;
+use std::thread::{self, available_parallelism};
 use std::{sync::Arc, time::Duration};
 
 extern crate simple_semaphore;
@@ -16,10 +16,10 @@ fn main() {
     }
     thread::sleep(Duration::from_millis(3000));
 
-    let cores = num_cpus::get();
+    let available_machine_parallelism = available_parallelism().unwrap().get();
 
-    let semaphore = simple_semaphore::Semaphore::default(); // Also uses `num_cpus::get()` internally
-    for _ in 0..(cores + 2) {
+    let semaphore = simple_semaphore::Semaphore::new_available_parallelism().unwrap(); // Also uses `available_parallelism()` internally
+    for _ in 0..(available_machine_parallelism + 2) {
         let semaphore = Arc::clone(&semaphore);
         thread::spawn(move || {
             if let Some(permit) = semaphore.try_acquire() {
@@ -30,5 +30,7 @@ fn main() {
             }
         });
     }
-    thread::sleep(Duration::from_millis((((cores + 1) * 1000) / 2) as u64));
+    thread::sleep(Duration::from_millis(
+        (((available_machine_parallelism + 1) * 1000) / 2) as u64,
+    ));
 }

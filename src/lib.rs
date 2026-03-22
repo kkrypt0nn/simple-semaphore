@@ -1,6 +1,9 @@
-use std::sync::{
-    atomic::{AtomicUsize, Ordering},
-    Arc, Condvar, Mutex,
+use std::{
+    sync::{
+        Arc, Condvar, Mutex,
+        atomic::{AtomicUsize, Ordering},
+    },
+    thread::available_parallelism,
 };
 
 /// A Semaphore maintains the number of permits it is still allowed to give.
@@ -24,13 +27,16 @@ impl Semaphore {
         })
     }
 
-    /// Returns a new `Arc<Semaphore>` with the limit of permits set to the number of CPU cores the computer has.
-    pub fn default() -> Arc<Self> {
-        Arc::new(Semaphore {
-            permits: Arc::new(AtomicUsize::new(num_cpus::get())),
-            condvar: Condvar::new(),
-            mutex: Mutex::new(()),
-        })
+    /// Returns a new `Arc<Semaphore>` with the limit of permits set to the machine's parallelism value, usually CPU cores.
+    pub fn new_available_parallelism() -> Result<Arc<Self>, String> {
+        match available_parallelism() {
+            Ok(parallelism) => Ok(Arc::new(Semaphore {
+                permits: Arc::new(AtomicUsize::new(parallelism.get())),
+                condvar: Condvar::new(),
+                mutex: Mutex::new(()),
+            })),
+            Err(err) => Err(err.to_string()),
+        }
     }
 
     /// Returns the number of available permits
