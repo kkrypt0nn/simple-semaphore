@@ -1,7 +1,6 @@
+use simple_semaphore;
 use std::thread::{self, available_parallelism};
 use std::{sync::Arc, time::Duration};
-
-extern crate simple_semaphore;
 
 fn main() {
     let semaphore = simple_semaphore::Semaphore::new(2);
