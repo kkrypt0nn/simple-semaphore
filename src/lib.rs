@@ -1,4 +1,5 @@
 use std::{
+    io,
     sync::{Arc, Condvar, Mutex},
     thread::available_parallelism,
 };
@@ -23,14 +24,8 @@ impl Semaphore {
     }
 
     /// Returns a new `Arc<Semaphore>` with the limit of permits set to the machine's parallelism value, usually CPU cores.
-    pub fn new_available_parallelism() -> Result<Arc<Self>, String> {
-        match available_parallelism() {
-            Ok(parallelism) => Ok(Arc::new(Semaphore {
-                permits: Mutex::new(parallelism.get()),
-                condvar: Condvar::new(),
-            })),
-            Err(err) => Err(err.to_string()),
-        }
+    pub fn new_available_parallelism() -> io::Result<Arc<Self>> {
+        available_parallelism().map(|value| Self::new(value.get()))
     }
 
     /// Returns the number of available permits
